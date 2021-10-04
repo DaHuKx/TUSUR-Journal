@@ -1,0 +1,165 @@
+﻿<Window x:Class="TUSUR_Journal.StartWindow"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TUSUR_Journal"
+        mc:Ignorable="d"
+        Title="СтаростаБот By DaHuKx"
+        Height="600"
+        Width="500"
+        MinHeight="600"
+        MinWidth="500"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="1,1" MappingMode="RelativeToBoundingBox" StartPoint="0,0">
+            <GradientStop Color="#FF222E4B" Offset="0"/>
+            <GradientStop Color="#FF263253" Offset="0.489"/>
+            <GradientStop Color="#FF192136" Offset="0.98"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <materialDesign:DialogHost Grid.Row="0" Grid.RowSpan="2" Name="DialogHost">
+            <materialDesign:DialogHost.DialogContent>
+                <Border Background="White" Width="170" Height="170" CornerRadius="30">
+                    <StackPanel>
+                        <Label Content="Проверка" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center" Margin="0,5"/>
+                        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="5,10,5,0">
+                            <Label Content="Проверка полей" FontWeight="Bold"/>
+                            <CheckBox x:Name="CheckBox1" IsChecked="False" IsEnabled="False"/>
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="5,0,5,0">
+                            <Label Content="Проверка данных СДО" FontWeight="Bold"/>
+                            <CheckBox x:Name="CheckBox2" IsChecked="False" IsEnabled="False"/>
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="5,0,5,0">
+                            <Label Content="Проверка студентов" FontWeight="Bold"/>
+                            <CheckBox x:Name="CheckBox3" IsChecked="False" IsEnabled="False"/>
+                        </StackPanel>
+                        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Margin="5,0,5,5">
+                            <Label Content="Проверка сохранения" FontWeight="Bold"/>
+                            <CheckBox x:Name="CheckBox4" IsChecked="False" IsEnabled="False" Checked="CheckBox4_Checked"/>
+                        </StackPanel>
+                        <ProgressBar Style="{DynamicResource MaterialDesignLinearProgressBar}"
+                                     Value="50"
+                                     IsIndeterminate="True"
+                                     FontSize="15"/>
+                    </StackPanel>
+                </Border>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
+        <Grid Grid.Row="0">
+            <Image Width="400" Source="Images/ТУСУР белый.png"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Border Background="#FFF0F0F0" Margin="20" Width="400" CornerRadius="20" Height="399">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="30" ShadowDepth="0"/>
+                </Border.Effect>
+                <StackPanel x:Name="StartPanel" Margin="20" Background="Transparent">
+                    <Label 
+                        Content="Данные СДО" 
+                        HorizontalAlignment="Center" 
+                        Foreground="Black" 
+                        FontWeight="Bold"/>
+                    <TextBox x:Name="LoginTB"
+                        materialDesign:HintAssist.Hint="Логин"
+                        Width="150" 
+                        BorderBrush="#89000000" 
+                        Margin="0, 10" 
+                        HorizontalContentAlignment="Center"/>
+                    <PasswordBox x:Name="PasswordTB"
+                        materialDesign:HintAssist.Hint="Пароль" 
+                        Width="150" 
+                        BorderBrush="#89000000" 
+                        HorizontalContentAlignment="Center"/>
+                    <Label 
+                        Content="Файлы" 
+                        HorizontalAlignment="Center" 
+                        Foreground="Black" 
+                        FontWeight="Bold" 
+                        Margin="0, 40, 0, 0"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBox x:Name="StudentFileTB" 
+                            ToolTip="Путь к файлу со списком студентов вашей группы" 
+                            materialDesign:HintAssist.Hint="Файл со студентами" 
+                            Width="250" 
+                            BorderBrush="#89000000" 
+                            Margin="0, 10"/>
+                        <Button 
+                            Content="Обзор" 
+                            Click="OpenFileDialog" 
+                            Background="#FFF0F0F0" 
+                            Foreground="#FF2E3C43"
+                            Margin="10, 0"
+                            FontSize="11" 
+                            FontWeight="Bold" 
+                            materialDesign:ButtonAssist.CornerRadius="15"
+                            BorderBrush="#FF2E3C43"
+                            BorderThickness="1"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBox x:Name="SaveFolderTB" 
+                            ToolTip="Путь к папке для сохранения" 
+                            materialDesign:HintAssist.Hint="Папка для сохранения" 
+                            Width="250" 
+                            BorderBrush="#89000000" 
+                            Margin="0, 10"/>
+                        <Button
+                            Content="Обзор"  
+                            Click="OpenFolderDialog" 
+                            Background="#FFF0F0F0" 
+                            Foreground="#FF2E3C43"
+                            Margin="10, 0"
+                            FontSize="11" 
+                            FontWeight="Bold"
+                            materialDesign:ButtonAssist.CornerRadius="15"
+                            BorderBrush="#FF2E3C43"
+                            BorderThickness="1"/>
+                    </StackPanel>
+                    <CheckBox x:Name="SaveCheckBox"
+                        HorizontalAlignment="Center"
+                        Content="Запомнить все данные"
+                        Style="{StaticResource MaterialDesignAccentCheckBox}"
+                        BorderBrush="#FF334046"
+                        Background="#FF334046"/>
+                    <Button 
+                        Content="Начать" 
+                        Margin="30" 
+                        Width="150" 
+                        FontSize="14" 
+                        FontWeight="ExtraBold"
+                        Click="Program"
+                        Background="#FF2E3C43"
+                        Foreground="White"
+                        VerticalAlignment="Center"
+                        Padding="0,0,0,2"
+                        IsEnabled="True"
+                        materialDesign:ButtonAssist.CornerRadius="15"
+                        BorderBrush="{x:Null}">
+                    </Button>
+                </StackPanel>
+            </Border>
+        </Grid>
+        <materialDesign:Snackbar
+                            Grid.Row="1"
+                            x:Name="ErrorSnackbar"
+                            Message="hello 1"
+                            HorizontalContentAlignment="Center"
+                            IsActive="True"
+                            Visibility="Hidden"
+                            FontSize="15"
+                            FontWeight="Bold"
+                            BorderBrush="Black"
+                            BorderThickness="2"
+                            Foreground="Red"
+                            Background="#dcdcdc">
+        </materialDesign:Snackbar>
+    </Grid>
+</Window>
